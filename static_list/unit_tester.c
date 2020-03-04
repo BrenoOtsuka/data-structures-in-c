@@ -51,6 +51,27 @@ deletar_uma_lista_nao_vazia_a_lista_e_os_itens_da_lista_sao_liberados_e_a_lista_
     assert(list == NULL);
 }
 
+// void
+// uma_lista_vazia_retorna_1(void) {
+
+//     static_list list = static_list_create(5);
+//     assert(static_list_isempty(list) == 1);
+// }   
+
+// void
+// uma_lista_nao_vazia_retorna_0(void) {
+
+//     static_list list = static_list_create(5);
+
+//     int* item = (int*) malloc ( sizeof(int) );
+//     *item = 5;
+
+//     static_list_insert(list, 0, item);
+//     assert(static_list_isempty(list) == 0);
+
+//     free(item);
+// }
+
 int
 main (int argc, char** argv) {
     
@@ -62,5 +83,9 @@ main (int argc, char** argv) {
     deletar_uma_lista_vazia_a_lista_e_liberada_e_armazena_NULL();
     deletar_uma_lista_nao_vazia_a_lista_e_os_itens_da_lista_sao_liberados_e_a_lista_armazena_NULL();
 
+    // uma_lista_vazia_retorna_1();
+    // uma_lista_nao_vazia_retorna_0();
+
     return 0;
 }
+
