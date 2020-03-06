@@ -3,15 +3,18 @@
 
 struct struct_static_list;
 
-typedef struct  struct_static_list * static_list;
-
 typedef int position;
+typedef struct  struct_static_list* static_list;
 
-enum STATIC_LIST_FLAGS {
-    OK,
-    OUT_OF_BOUND_ERROR,
-    UNKNOWN_POINTER_ERROR
-};
+// just for unit test
+static_list
+static_list_init_sequential_list(int content_size, int sequence_length);
+
+int
+static_list_compare(static_list list, static_list other);
+
+void
+static_list_println(static_list list);
 
 // contructor
 static_list 
