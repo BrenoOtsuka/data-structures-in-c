@@ -178,3 +178,11 @@ static_list_contains(static_list list, void* item, position* pos) {
     }
     return 0;
 }
+
+static_list
+static_list_retrieve(static_list list, position pos) {
+
+    if ( pos < 0 || pos >= list->size ) { return NULL; }
+
+    return list->content[ pos ];
+}

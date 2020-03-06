@@ -293,6 +293,56 @@ localizar_o_item_5_na_lista_1_2_3_retorna_0(void) {
     assert( static_list_contains(list, item, &pos ) == 0 );
 }
 
+void
+recuperar_o_item_da_lista_1_2_3_4_5_na_primeira_posicao_retorna_1(void) {
+
+    static_list list = static_list_init_sequential_list(5, 5);
+    
+    int* item = (int*) static_list_retrieve(list, 0);
+
+    assert( *item == 1 );
+}
+
+void
+recuperar_o_item_da_lista_1_2_3_4_5_na_posicao_3_retorna_4(void) {
+
+    static_list list = static_list_init_sequential_list(5, 5);
+    
+    int* item = (int*) static_list_retrieve(list, 3);
+
+    assert( *item == 4 );
+}
+
+void
+recuperar_o_item_da_lista_1_2_3_4_5_na_ultima_posicao_retorna_5(void) {
+
+    static_list list = static_list_init_sequential_list(5, 5);
+    
+    int* item = (int*) static_list_retrieve(list, 4);
+
+    assert( *item == 5 );
+}
+
+void
+recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_negativa_retorna_NULL(void) {
+
+    static_list list = static_list_init_sequential_list(5, 5);
+    
+    int* item = (int*) static_list_retrieve(list, -1);
+
+    assert( item == NULL );
+}
+
+void
+recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_fora_do_limite_da_lista_retorna_NULL(void) {
+
+    static_list list = static_list_init_sequential_list(5, 5);
+    
+    int* item = (int*) static_list_retrieve(list, 5);
+
+    assert( item == NULL );
+}
+
 int
 main (int argc, char** argv) {
 
@@ -335,7 +385,11 @@ main (int argc, char** argv) {
     localizar_o_item_1_na_lista_1_2_3_retorna_1_e_a_posicao_0();
     localizar_o_item_5_na_lista_1_2_3_retorna_0();
 
-
+    recuperar_o_item_da_lista_1_2_3_4_5_na_primeira_posicao_retorna_1();
+    recuperar_o_item_da_lista_1_2_3_4_5_na_posicao_3_retorna_4();
+    recuperar_o_item_da_lista_1_2_3_4_5_na_ultima_posicao_retorna_5();
+    recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_negativa_retorna_NULL();
+    recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_fora_do_limite_da_lista_retorna_NULL();
 
     return 0;
 }
