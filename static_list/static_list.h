@@ -19,14 +19,6 @@ static_list_compare(static_list list, static_list other);
 void
 static_list_println(static_list list);
 
-typedef int position;
-
-enum STATIC_LIST_FLAGS {
-    OK,
-    OUT_OF_BOUND_ERROR,
-    UNKNOWN_POINTER_ERROR
-};
-
 // contructor
 static_list 
 static_list_create(int size);

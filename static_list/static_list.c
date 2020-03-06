@@ -13,32 +13,6 @@ struct struct_static_list {
 };
 
 static_list
-static_list_init_sequential_list(int content_size, int sequence_length) {
-
-    if ( sequence_length < 0 || content_size <= 0 ) { return NULL; }
-    if ( sequence_length > content_size           ) { return NULL; }
-
-    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
-
-    if (list == NULL) { return NULL; }
-
-    list->content = (void**) calloc (content_size, sizeof ( void* ));
-
-    if (list->content == NULL) { free(list); return NULL; }
-
-    for (int index = 0; index < sequence_length; ++index) {
-
-        list->content[ index ] = malloc( sizeof(int) );
-        *( (int *) list->content[ index ] ) = index + 1;
-    }
-
-    list->content_size = content_size;
-    list->size = sequence_length;
-
-    return list;
-}
-
-static_list
 static_list_init(int content_size, int length, const int itens[]) {
 
     if ( length < 0 || content_size <= 0 ) { return NULL; }
@@ -60,6 +34,32 @@ static_list_init(int content_size, int length, const int itens[]) {
 
     list->content_size = content_size;
     list->size = length;
+
+    return list;
+}
+
+static_list
+static_list_init_sequential_list(int content_size, int sequence_length) {
+
+    if ( sequence_length < 0 || content_size <= 0 ) { return NULL; }
+    if ( sequence_length > content_size           ) { return NULL; }
+
+    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
+
+    if (list == NULL) { return NULL; }
+
+    list->content = (void**) calloc (content_size, sizeof ( void* ));
+
+    if (list->content == NULL) { free(list); return NULL; }
+
+    for (int index = 0; index < sequence_length; ++index) {
+
+        list->content[ index ] = malloc( sizeof(int) );
+        *( (int *) list->content[ index ] ) = index + 1;
+    }
+
+    list->content_size = content_size;
+    list->size = sequence_length;
 
     return list;
 }
