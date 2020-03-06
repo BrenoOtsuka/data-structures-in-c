@@ -14,7 +14,8 @@ struct struct_static_list {
 static_list
 static_list_init_sequential_list(int content_size, int sequence_length) {
 
-    if ( sequence_length > content_size ) { return NULL; }
+    if ( sequence_length < 0 || content_size <= 0 ) { return NULL; }
+    if ( sequence_length > content_size           ) { return NULL; }
 
     static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
 
@@ -97,6 +98,11 @@ static_list_destroy(static_list* list_pointer) {
     static_list list = *list_pointer;
 
     if (list == NULL) { return; }
+
+    for ( int index = 0; index < list->static_list_size; ++index ) {
+
+        free( list->content[ index ] );
+    }
 
     free(list->content);
     free(list);

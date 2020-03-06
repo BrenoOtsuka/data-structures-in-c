@@ -4,6 +4,18 @@
 #include <assert.h>
 
 void
+inicializar_uma_lista_com_content_size_negativo_retorna_NULL(void) {
+
+    assert( static_list_init_sequential_list(-1, 0) == NULL);
+}
+
+void
+inicializar_uma_lista_com_sequence_length_negativo_retorna_NULL(void) {
+
+    assert( static_list_init_sequential_list(1,-1) == NULL);
+}
+
+void
 comparar_uma_lista_com_ela_mesma_retorna_1(void) {
 
     static_list list = static_list_init_sequential_list(5, 3);
@@ -153,7 +165,10 @@ main (int argc, char** argv) {
     // printing_an_empty_list();
     // printing_an_not_full_list();
     // printing_an_full_list();
-    
+
+    inicializar_uma_lista_com_content_size_negativo_retorna_NULL();
+    inicializar_uma_lista_com_sequence_length_negativo_retorna_NULL();
+
     comparar_uma_lista_com_ela_mesma_retorna_1();
     comparar_duas_listas_vazias_retorna_1();
     comparar_duas_listas_iguais_retorna_1();
