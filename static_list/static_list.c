@@ -37,6 +37,32 @@ static_list_init_sequential_list(int content_size, int sequence_length) {
     return list;
 }
 
+static_list
+static_list_init(int content_size, int length, const int itens[]) {
+
+    if ( length < 0 || content_size <= 0 ) { return NULL; }
+    if ( length > content_size           ) { return NULL; }
+
+    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
+
+    if (list == NULL) { return NULL; }
+
+    list->content = (void**) calloc (content_size, sizeof ( void* ));
+
+    if (list->content == NULL) { free(list); return NULL; }
+
+    for (int index = 0; index < length; ++index) {
+
+        list->content[ index ] = malloc( sizeof(int) );
+        *( (int *) list->content[ index ] ) = itens[ index ];
+    }
+
+    list->content_size = content_size;
+    list->static_list_size = length;
+
+    return list;
+}
+
 int
 static_list_compare(static_list list, static_list other) {
 
@@ -119,3 +145,22 @@ static_list_isfull(static_list list) { return list->static_list_size == list->co
 
 int
 static_list_length(static_list list) { return list->static_list_size; }
+
+// list operations
+int
+static_list_insert(static_list list, position pos, void* item) {
+
+    if ( list == NULL                            ) { return 0; }
+    if ( pos < 0 || pos > list->static_list_size ) { return 0; }
+
+    void** destination = &(list->content[ pos+1 ]);
+    void** source      = &(list->content[ pos   ]);
+    int numberofbytes  =  (list->static_list_size - pos) * sizeof( void* );
+ 
+    memmove(destination, source, numberofbytes);
+
+    list->content[ pos ] = item;
+    list->static_list_size++;
+
+    return 1;
+}

@@ -68,6 +68,15 @@ printing_an_full_list(void) {
 }
 
 void
+printing_some_list(void) {
+    
+    const int itens[] = { 1, 3, 4 };
+
+    static_list list = static_list_init(5, 3, itens);
+    static_list_println(list);
+}
+
+void
 criar_uma_lista_de_tamanho_0_retorna_NULL(void) {
 
     static_list list = static_list_create(0);
@@ -159,12 +168,55 @@ uma_lista_de_tamanho_n_retorna_n(void) {
     assert(static_list_length(list) == 3);
 }
 
+void
+inserir_um_item_em_uma_lista_vazia_altera_para_uma_lista_com_um_item(void) {
+
+    static_list list = static_list_init_sequential_list(5, 0);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 1;
+
+    static_list_insert(list, 0, item);
+
+    assert(static_list_compare(list, static_list_init_sequential_list(1,1)));
+}
+
+void
+inserir_3_na_lista_1_2_altera_a_lista_para_1_2_3(void) {
+
+    static_list list = static_list_init_sequential_list(5, 2);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 3;
+
+    static_list_insert(list, static_list_length(list), item);
+
+    assert(static_list_compare(list, static_list_init_sequential_list(3,3)));
+}
+
+void
+inserir_2_na_posicao_1_da_lista_1_3_4_altera_a_lista_para_1_2_3_4(void) {
+
+    const int itens[] = { 1, 3, 4 };
+
+    static_list list         = static_list_init(4, 3, itens);
+    static_list correct_list = static_list_init_sequential_list(4, 4);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 2;
+
+    static_list_insert(list, 1, item);
+
+    assert( static_list_compare(list, correct_list) );
+}
+
 int
 main (int argc, char** argv) {
 
     // printing_an_empty_list();
     // printing_an_not_full_list();
     // printing_an_full_list();
+    // printing_some_list();
 
     inicializar_uma_lista_com_content_size_negativo_retorna_NULL();
     inicializar_uma_lista_com_sequence_length_negativo_retorna_NULL();
@@ -188,6 +240,10 @@ main (int argc, char** argv) {
     deletar_uma_lista_igual_a_NULL_nao_acontece_nada();
     deletar_uma_lista_vazia_a_lista_e_liberada_e_armazena_NULL();
     deletar_uma_lista_nao_vazia_a_lista_e_os_itens_da_lista_sao_liberados_e_a_lista_armazena_NULL();
+
+    inserir_um_item_em_uma_lista_vazia_altera_para_uma_lista_com_um_item();
+    inserir_3_na_lista_1_2_altera_a_lista_para_1_2_3();
+    inserir_2_na_posicao_1_da_lista_1_3_4_altera_a_lista_para_1_2_3_4();
 
     return 0;
 }

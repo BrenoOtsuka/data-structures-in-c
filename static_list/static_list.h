@@ -8,6 +8,9 @@ typedef struct  struct_static_list* static_list;
 
 // just for unit test
 static_list
+static_list_init(int content_size, int length, const int itens[]);
+
+static_list
 static_list_init_sequential_list(int content_size, int sequence_length);
 
 int
@@ -33,5 +36,9 @@ static_list_isfull(static_list list);
 
 int
 static_list_length(static_list list);
+
+// list operations
+int
+static_list_insert(static_list list, position pos, void* item);
 
 #endif
