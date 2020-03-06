@@ -264,7 +264,7 @@ localizar_o_item_1_na_lista_1_2_3_retorna_1_e_a_posicao_0(void) {
     
     int* item = (int*) malloc(sizeof(int)); *item = 1;
     
-    assert( static_list_locate(list, item, &pos ) == 1 );
+    assert( static_list_contains(list, item, &pos ) == 1 );
     assert( pos == 0 );
 }
 
@@ -277,7 +277,7 @@ localizar_o_item_3_na_lista_1_2_3_retorna_1_e_a_posicao_2(void) {
 
     int* item = (int*) malloc(sizeof(int)); *item = 3;
     
-    assert( static_list_locate(list, item, &pos ) == 1 );
+    assert( static_list_contains(list, item, &pos ) == 1 );
     assert( pos == 2 );
 }
 
@@ -290,7 +290,7 @@ localizar_o_item_5_na_lista_1_2_3_retorna_0(void) {
 
     int* item = (int*) malloc(sizeof(int)); *item = 5;
     
-    assert( static_list_locate(list, item, &pos ) == 0 );
+    assert( static_list_contains(list, item, &pos ) == 0 );
 }
 
 int
@@ -334,6 +334,7 @@ main (int argc, char** argv) {
     localizar_o_item_3_na_lista_1_2_3_retorna_1_e_a_posicao_2();
     localizar_o_item_1_na_lista_1_2_3_retorna_1_e_a_posicao_0();
     localizar_o_item_5_na_lista_1_2_3_retorna_0();
+
 
 
     return 0;
