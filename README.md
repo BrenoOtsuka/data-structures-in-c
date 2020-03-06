@@ -4,7 +4,7 @@
 
 implementações básicas em C das seguintes estruturas:
 
--[x] lista estática
+- [x] lista estática
 * lista encadeada
 * lista duplamente encadeada
 
