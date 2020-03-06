@@ -2,6 +2,7 @@
 
 #include <stdlib.h>
 #include <assert.h>
+#include <stdio.h>
 
 void
 inicializar_uma_lista_com_content_size_negativo_retorna_NULL(void) {
@@ -178,7 +179,8 @@ inserir_um_item_em_uma_lista_vazia_altera_para_uma_lista_com_um_item(void) {
 
     static_list_insert(list, 0, item);
 
-    assert(static_list_compare(list, static_list_init_sequential_list(1,1)));
+    assert( static_list_compare(list, static_list_init_sequential_list(1,1)) );
+    assert( static_list_length(list) == 1 );
 }
 
 void
@@ -191,7 +193,8 @@ inserir_3_na_lista_1_2_altera_a_lista_para_1_2_3(void) {
 
     static_list_insert(list, static_list_length(list), item);
 
-    assert(static_list_compare(list, static_list_init_sequential_list(3,3)));
+    assert( static_list_compare(list, static_list_init_sequential_list(3,3)) );
+    assert( static_list_length(list) == 3 );
 }
 
 void
@@ -208,6 +211,86 @@ inserir_2_na_posicao_1_da_lista_1_3_4_altera_a_lista_para_1_2_3_4(void) {
     static_list_insert(list, 1, item);
 
     assert( static_list_compare(list, correct_list) );
+    assert( static_list_length(list) == 4 );
+}
+
+void
+inserir_1_no_inicio_da_lista_2_3_4_altera_a_lista_para_1_2_3_4(void) {
+
+    const int itens[] = { 2, 3, 4 };
+
+    static_list list         = static_list_init(4, 3, itens);
+    static_list correct_list = static_list_init_sequential_list(4, 4);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 1;
+
+    static_list_insert(list, 0, item);
+
+    assert( static_list_compare(list, correct_list) );
+    assert( static_list_length(list) == 4 );
+}
+
+void
+inserir_5_fora_do_limite_de_uma_lista_retorna_0(void) {
+
+    static_list list = static_list_init_sequential_list(5, 3);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 5;
+
+    assert( static_list_insert(list, 4, item) == 0 );
+    assert( static_list_length(list) == 3 );
+}
+
+void
+inserir_5_na_posicao_menos_1_de_uma_lista_retorna_0(void) {
+
+    static_list list = static_list_init_sequential_list(5, 3);
+    
+    int* item = (int*) malloc ( sizeof(int) );
+    *item = 5;
+
+    assert( static_list_insert(list, -1, item) == 0 );
+    assert( static_list_length(list) == 3 );
+}
+
+void
+localizar_o_item_1_na_lista_1_2_3_retorna_1_e_a_posicao_0(void) {
+
+    position pos = -1;
+
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    int* item = (int*) malloc(sizeof(int)); *item = 1;
+    
+    assert( static_list_locate(list, item, &pos ) == 1 );
+    assert( pos == 0 );
+}
+
+void
+localizar_o_item_3_na_lista_1_2_3_retorna_1_e_a_posicao_2(void) {
+
+    position pos = -1;
+
+    static_list list = static_list_init_sequential_list(3, 3);
+
+    int* item = (int*) malloc(sizeof(int)); *item = 3;
+    
+    assert( static_list_locate(list, item, &pos ) == 1 );
+    assert( pos == 2 );
+}
+
+void
+localizar_o_item_5_na_lista_1_2_3_retorna_0(void) {
+
+    position pos = -1;
+
+    static_list list = static_list_init_sequential_list(3, 3);
+
+    int* item = (int*) malloc(sizeof(int)); *item = 5;
+    
+    assert( static_list_locate(list, item, &pos ) == 0 );
 }
 
 int
@@ -244,6 +327,14 @@ main (int argc, char** argv) {
     inserir_um_item_em_uma_lista_vazia_altera_para_uma_lista_com_um_item();
     inserir_3_na_lista_1_2_altera_a_lista_para_1_2_3();
     inserir_2_na_posicao_1_da_lista_1_3_4_altera_a_lista_para_1_2_3_4();
+    inserir_1_no_inicio_da_lista_2_3_4_altera_a_lista_para_1_2_3_4();
+    inserir_5_fora_do_limite_de_uma_lista_retorna_0();
+    inserir_5_na_posicao_menos_1_de_uma_lista_retorna_0();
+
+    localizar_o_item_3_na_lista_1_2_3_retorna_1_e_a_posicao_2();
+    localizar_o_item_1_na_lista_1_2_3_retorna_1_e_a_posicao_0();
+    localizar_o_item_5_na_lista_1_2_3_retorna_0();
+
 
     return 0;
 }

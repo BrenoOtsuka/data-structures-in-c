@@ -8,7 +8,7 @@ struct struct_static_list {
     
     void** content;
     int content_size;
-    int static_list_size;
+    int size;
 };
 
 static_list
@@ -32,7 +32,7 @@ static_list_init_sequential_list(int content_size, int sequence_length) {
     }
 
     list->content_size = content_size;
-    list->static_list_size = sequence_length;
+    list->size = sequence_length;
 
     return list;
 }
@@ -58,7 +58,7 @@ static_list_init(int content_size, int length, const int itens[]) {
     }
 
     list->content_size = content_size;
-    list->static_list_size = length;
+    list->size = length;
 
     return list;
 }
@@ -67,9 +67,9 @@ int
 static_list_compare(static_list list, static_list other) {
 
     if ( list == NULL || other == NULL                     ) { return 0; }
-    if ( list->static_list_size != other->static_list_size ) { return 0; }
+    if ( list->size != other->size ) { return 0; }
 
-    for ( int index = 0; index < list->static_list_size; ++index) {
+    for ( int index = 0; index < list->size; ++index) {
 
         void* list_item      = list->content[ index ];
         void* other_item     = other->content[ index ];
@@ -94,7 +94,7 @@ static_list_println(static_list list) {
     }
     putchar('\n');
     printf("content_size: %d\n", list->content_size);
-    printf("list_length:  %d\n", list->static_list_size);
+    printf("length: %d\n", list->size);
 }
 
 // contructor
@@ -112,7 +112,7 @@ static_list_create(int size) {
     if (list->content == NULL) { free(list); return NULL; }
 
     list->content_size = size;
-    list->static_list_size = 0;
+    list->size = 0;
 
     return list;
 }
@@ -125,7 +125,7 @@ static_list_destroy(static_list* list_pointer) {
 
     if (list == NULL) { return; }
 
-    for ( int index = 0; index < list->static_list_size; ++index ) {
+    for ( int index = 0; index < list->size; ++index ) {
 
         free( list->content[ index ] );
     }
@@ -138,29 +138,43 @@ static_list_destroy(static_list* list_pointer) {
 
 // auxiliary functions
 int
-static_list_isempty(static_list list) { return list->static_list_size == 0; }
+static_list_isempty(static_list list) { return list->size == 0; }
 
 int
-static_list_isfull(static_list list) { return list->static_list_size == list->content_size; }
+static_list_isfull(static_list list) { return list->size == list->content_size; }
 
 int
-static_list_length(static_list list) { return list->static_list_size; }
+static_list_length(static_list list) { return list->size; }
 
 // list operations
 int
 static_list_insert(static_list list, position pos, void* item) {
 
     if ( list == NULL                            ) { return 0; }
-    if ( pos < 0 || pos > list->static_list_size ) { return 0; }
+    if ( pos < 0 || pos > list->size ) { return 0; }
 
     void** destination = &(list->content[ pos+1 ]);
     void** source      = &(list->content[ pos   ]);
-    int numberofbytes  =  (list->static_list_size - pos) * sizeof( void* );
+    int numberofbytes  =  (list->size - pos) * sizeof( void* );
  
     memmove(destination, source, numberofbytes);
 
     list->content[ pos ] = item;
-    list->static_list_size++;
+    list->size++;
 
     return 1;
+}
+
+int
+static_list_locate(static_list list, void* item, position* pos) {
+
+    size_t numberofbytes = sizeof( item );
+
+    for (int index = 0; index < list->size; ++index) {
+
+        void* list_item = list->content[ index ];
+
+        if ( memcmp( list_item, item, numberofbytes ) == 0) { *pos = index; return 1; }
+    }
+    return 0;
 }

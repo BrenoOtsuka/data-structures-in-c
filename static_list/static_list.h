@@ -41,4 +41,7 @@ static_list_length(static_list list);
 int
 static_list_insert(static_list list, position pos, void* item);
 
+int
+static_list_locate(static_list list, void* item, position* pos);
+
 #endif
