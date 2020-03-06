@@ -103,3 +103,13 @@ static_list_destroy(static_list* list_pointer) {
 
     *list_pointer = NULL;
 }
+
+// auxiliary functions
+int
+static_list_isempty(static_list list) { return list->static_list_size == 0; }
+
+int
+static_list_isfull(static_list list) { return list->static_list_size == list->content_size; }
+
+int
+static_list_length(static_list list) { return list->static_list_size; }

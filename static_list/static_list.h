@@ -24,4 +24,14 @@ static_list_create(int size);
 void 
 static_list_destroy(static_list* list_pointer);
 
+// auxiliary functions
+int
+static_list_isempty(static_list list);
+
+int
+static_list_isfull(static_list list);
+
+int
+static_list_length(static_list list);
+
 #endif
