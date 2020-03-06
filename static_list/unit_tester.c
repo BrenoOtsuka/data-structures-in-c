@@ -120,8 +120,6 @@ void
 deletar_uma_lista_nao_vazia_a_lista_e_os_itens_da_lista_sao_liberados_e_a_lista_armazena_NULL(void) {
 
     static_list list = static_list_create(5);
-    
-    // deveria haver uma forma de verificar se os itens estao sendo liberados mesmo
 
     static_list_destroy(&list);
     assert(list == NULL);
@@ -343,6 +341,59 @@ recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_fora_do_limite_da_lista_retorn
     assert( item == NULL );
 }
 
+void
+deletar_o_item_na_primeira_posicao_da_lista_1_2_3_altera_a_lista_para_2_3(void) {
+
+    const int itens[] = { 2, 3 };
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    assert( static_list_delete(list, 0) == 1 );
+    assert( static_list_compare(list, static_list_init(2, 2, itens)) );
+    assert( static_list_length(list) == 2 );
+}
+
+void
+deletar_o_item_na_posicao_1_da_lista_1_2_3_altera_a_lista_para_1_3(void) {
+
+    const int itens[] = { 1, 3 };
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    assert( static_list_delete(list, 1) == 1 );
+    assert( static_list_compare(list, static_list_init(2, 2, itens)) );
+    assert( static_list_length(list) == 2 );
+}
+
+void
+deletar_o_item_na_ultima_posicao_da_lista_1_2_3_altera_a_lista_para_1_2(void) {
+
+    const int itens[] = { 1, 2 };
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    assert( static_list_delete(list, 2) == 1 );
+    assert( static_list_compare(list, static_list_init(2, 2, itens)) );
+    assert( static_list_length(list) == 2 );
+}
+
+void
+deletar_o_item_numa_posicao_negativa_retorna_0(void) {
+
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    assert( static_list_delete(list, -1) == 0 );
+    assert( static_list_compare(list, list) );
+    assert( static_list_length(list) == 3 );
+}
+
+void
+deletar_o_item_numa_posicao_fora_do_limite_da_lista_retorna_0(void) {
+
+    static_list list = static_list_init_sequential_list(3, 3);
+    
+    assert( static_list_delete(list, 3) == 0 );
+    assert( static_list_compare(list, list) );
+    assert( static_list_length(list) == 3 );
+}
+
 int
 main (int argc, char** argv) {
 
@@ -365,7 +416,7 @@ main (int argc, char** argv) {
     uma_lista_nao_cheia_retorna_0();
     uma_lista_vazia_retorna_0();
     uma_lista_de_tamanho_n_retorna_n();
-    
+
     criar_uma_lista_de_tamanho_0_retorna_NULL();
     criar_uma_lista_de_tamanho_negativo_retorna_NULL();
     criar_uma_lista_de_tamanho_positivo_retorna_ponteiro();
@@ -390,6 +441,12 @@ main (int argc, char** argv) {
     recuperar_o_item_da_lista_1_2_3_4_5_na_ultima_posicao_retorna_5();
     recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_negativa_retorna_NULL();
     recuperar_um_item_da_lista_1_2_3_4_5_numa_posicao_fora_do_limite_da_lista_retorna_NULL();
+
+    deletar_o_item_na_primeira_posicao_da_lista_1_2_3_altera_a_lista_para_2_3();
+    deletar_o_item_na_posicao_1_da_lista_1_2_3_altera_a_lista_para_1_3();
+    deletar_o_item_na_ultima_posicao_da_lista_1_2_3_altera_a_lista_para_1_2();
+    deletar_o_item_numa_posicao_negativa_retorna_0();
+    deletar_o_item_numa_posicao_fora_do_limite_da_lista_retorna_0();
 
     return 0;
 }

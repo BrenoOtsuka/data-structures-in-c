@@ -47,4 +47,7 @@ static_list_contains(static_list list, void* item, position* pos);
 static_list
 static_list_retrieve(static_list list, position pos);
 
+int
+static_list_delete(static_list list, position pos);
+
 #endif

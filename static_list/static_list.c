@@ -150,7 +150,7 @@ static_list_length(static_list list) { return list->size; }
 int
 static_list_insert(static_list list, position pos, void* item) {
 
-    if ( list == NULL                            ) { return 0; }
+    if ( list == NULL                ) { return 0; }
     if ( pos < 0 || pos > list->size ) { return 0; }
 
     void** destination = &(list->content[ pos+1 ]);
@@ -185,4 +185,22 @@ static_list_retrieve(static_list list, position pos) {
     if ( pos < 0 || pos >= list->size ) { return NULL; }
 
     return list->content[ pos ];
+}
+
+int
+static_list_delete(static_list list, position pos) {
+
+    if ( pos < 0 || pos >= list->size ) { return 0; }
+    
+    free(list->content[ pos ]);
+
+    void** destination = &(list->content[ pos   ]);
+    void** source      = &(list->content[ pos+1 ]);
+    int numberofbytes  =  (list->size - (pos + 1)) * sizeof( void* );
+ 
+    memmove(destination, source, numberofbytes);
+
+    list->size--;
+
+    return 1;
 }
