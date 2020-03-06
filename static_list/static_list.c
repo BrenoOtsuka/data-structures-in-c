@@ -1,6 +1,7 @@
 #include "static_list.h"
 
 #include <stdlib.h>
+#include <string.h>
 
 struct struct_static_list {
     
@@ -10,7 +11,7 @@ struct struct_static_list {
 };
 
 // contructor
-static_list 
+static_list
 static_list_create(int size) {
 
     if (size <= 0) { return NULL; }
@@ -36,11 +37,6 @@ static_list_destroy(static_list* list_pointer) {
     static_list list = *list_pointer;
 
     if (list == NULL) { return; }
-
-    for (int pos = 0; pos < list->static_list_size; ++pos) {
-        
-        free(list->content[ pos ]);
-    }
 
     free(list->content);
     free(list);

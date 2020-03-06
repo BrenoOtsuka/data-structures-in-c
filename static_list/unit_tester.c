@@ -46,7 +46,9 @@ void
 deletar_uma_lista_nao_vazia_a_lista_e_os_itens_da_lista_sao_liberados_e_a_lista_armazena_NULL(void) {
 
     static_list list = static_list_create(5);
+    
     // deveria haver uma forma de verificar se os itens estao sendo liberados mesmo
+    
     static_list_destroy(&list);
     assert(list == NULL);
 }
