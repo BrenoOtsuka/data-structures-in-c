@@ -5,20 +5,20 @@
 
 #include <stdio.h>
 
-struct struct_static_list {
+struct static_list_st {
     
     void** content;
     int content_size;
     int size;
 };
 
-static_list
+static_list_t
 static_list_init(int content_size, int length, const int itens[]) {
 
     if ( length < 0 || content_size <= 0 ) { return NULL; }
     if ( length > content_size           ) { return NULL; }
 
-    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
+    static_list_t list = (static_list_t) malloc (sizeof ( struct static_list_st ));
 
     if (list == NULL) { return NULL; }
 
@@ -38,13 +38,13 @@ static_list_init(int content_size, int length, const int itens[]) {
     return list;
 }
 
-static_list
-static_list_init_sequential_list(int content_size, int sequence_length) {
+static_list_t
+static_list_sequence(int content_size, int length) {
 
-    if ( sequence_length < 0 || content_size <= 0 ) { return NULL; }
-    if ( sequence_length > content_size           ) { return NULL; }
+    if ( length < 0 || content_size <= 0 ) { return NULL; }
+    if ( length > content_size           ) { return NULL; }
 
-    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
+    static_list_t list = (static_list_t) malloc (sizeof ( struct static_list_st ));
 
     if (list == NULL) { return NULL; }
 
@@ -52,20 +52,20 @@ static_list_init_sequential_list(int content_size, int sequence_length) {
 
     if (list->content == NULL) { free(list); return NULL; }
 
-    for (int index = 0; index < sequence_length; ++index) {
+    for (int index = 0; index < length; ++index) {
 
         list->content[ index ] = malloc( sizeof(int) );
         *( (int *) list->content[ index ] ) = index + 1;
     }
 
     list->content_size = content_size;
-    list->size = sequence_length;
+    list->size = length;
 
     return list;
 }
 
 int
-static_list_compare(static_list list, static_list other) {
+static_list_compare(static_list_t list, static_list_t other) {
 
     if ( list == NULL || other == NULL                     ) { return 0; }
     if ( list->size != other->size ) { return 0; }
@@ -82,7 +82,7 @@ static_list_compare(static_list list, static_list other) {
 }
 
 void
-static_list_println(static_list list) {
+static_list_println(static_list_t list) {
 
     if ( list == NULL ) { return; }
 
@@ -99,12 +99,12 @@ static_list_println(static_list list) {
 }
 
 // contructor
-static_list
+static_list_t
 static_list_create(int size) {
 
     if (size <= 0) { return NULL; }
 
-    static_list list = (static_list) malloc (sizeof ( struct struct_static_list ));
+    static_list_t list = (static_list_t) malloc (sizeof ( struct static_list_st ));
 
     if (list == NULL) { return NULL; }
 
@@ -120,9 +120,9 @@ static_list_create(int size) {
 
 // destructor
 void 
-static_list_destroy(static_list* list_pointer) {
+static_list_destroy(static_list_t* list_pointer) {
 
-    static_list list = *list_pointer;
+    static_list_t list = *list_pointer;
 
     if (list == NULL) { return; }
 
@@ -139,17 +139,17 @@ static_list_destroy(static_list* list_pointer) {
 
 // auxiliary functions
 int
-static_list_isempty(static_list list) { return list->size == 0; }
+static_list_isempty(static_list_t list) { return list->size == 0; }
 
 int
-static_list_isfull(static_list list) { return list->size == list->content_size; }
+static_list_isfull(static_list_t list) { return list->size == list->content_size; }
 
 int
-static_list_length(static_list list) { return list->size; }
+static_list_length(static_list_t list) { return list->size; }
 
 // list operations
 int
-static_list_insert(static_list list, position pos, void* item) {
+static_list_insert(static_list_t list, position pos, void* item) {
 
     if ( list == NULL                ) { return 0; }
     if ( pos < 0 || pos > list->size ) { return 0; }
@@ -167,7 +167,7 @@ static_list_insert(static_list list, position pos, void* item) {
 }
 
 int
-static_list_contains(static_list list, void* item, position* pos) {
+static_list_contains(static_list_t list, void* item, position* pos) {
 
     size_t numberofbytes = sizeof( item );
 
@@ -180,8 +180,8 @@ static_list_contains(static_list list, void* item, position* pos) {
     return 0;
 }
 
-static_list
-static_list_retrieve(static_list list, position pos) {
+static_list_t
+static_list_retrieve(static_list_t list, position pos) {
 
     if ( pos < 0 || pos >= list->size ) { return NULL; }
 
@@ -189,7 +189,7 @@ static_list_retrieve(static_list list, position pos) {
 }
 
 int
-static_list_delete(static_list list, position pos) {
+static_list_delete(static_list_t list, position pos) {
 
     if ( pos < 0 || pos >= list->size ) { return 0; }
     
