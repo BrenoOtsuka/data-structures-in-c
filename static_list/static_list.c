@@ -39,7 +39,7 @@ static_list_init(int content_size, int length, const int itens[]) {
 }
 
 static_list_t
-static_list_init_sequential_list(int content_size, int sequence_length) {
+static_list_sequence(int content_size, int sequence_length) {
 
     if ( sequence_length < 0 || content_size <= 0 ) { return NULL; }
     if ( sequence_length > content_size           ) { return NULL; }
@@ -120,7 +120,7 @@ static_list_create(int size) {
 
 // destructor
 void 
-static_list_destroy(static_list* list_pointer) {
+static_list_destroy(static_list_t* list_pointer) {
 
     static_list_t list = *list_pointer;
 
