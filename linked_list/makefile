@@ -6,9 +6,9 @@ CC_FLAGS = -std=c99 -Wall
 
 LIBS = -lm
 
-DEPS = static_list.h
+DEPS = linked_list.h
 
-OBJ_ = unit_tester.o static_list.o
+OBJ_ = unit_tester.o linked_list.o
 
 OBJ  = $(patsubst %, $(ODIR)/%, $(OBJ_))
 
