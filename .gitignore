@@ -1,3 +1,5 @@
 /static_list/bin/*
 /static_list/unit_tester
-static_list_header.h
+
+/linked_list/bin/*
+/linked_list/unit_tester
