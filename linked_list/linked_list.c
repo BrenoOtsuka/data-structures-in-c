@@ -2,7 +2,6 @@
 #include "linked_node.h"
 
 #include <stdlib.h>
-#include <stdio.h>
 
 struct linked_list_st {
 
