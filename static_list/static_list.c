@@ -67,8 +67,9 @@ static_list_sequence(int content_size, int length) {
 int
 static_list_compare(static_list_t list, static_list_t other) {
 
-    if ( list == NULL || other == NULL                     ) { return 0; }
-    if ( list->size != other->size ) { return 0; }
+    if ( list == NULL && other == NULL ) { return 0; }
+    if ( list == NULL || other == NULL ) { return 0; }
+    if ( list->size != other->size     ) { return 0; }
 
     for ( int index = 0; index < list->size; ++index) {
 

@@ -6,13 +6,13 @@ CC_FLAGS = -std=c99 -Wall
 
 LIBS = -lm
 
-DEPS = linked_list.h
+DEPS = linked_node.h linked_list.h
 
-OBJ_ = unit_tester.o linked_list.o
+OBJ_ = main.o linked_node.o linked_list.o
 
 OBJ  = $(patsubst %, $(ODIR)/%, $(OBJ_))
 
-unit_tester: $(OBJ)
+unit: $(OBJ)
 	$(CC) $^ $(CC_FLAGS) -o $@ $(LIBS)
 
 $(ODIR)/%.o: %.c $(DEPS)
@@ -21,4 +21,4 @@ $(ODIR)/%.o: %.c $(DEPS)
 .PHONY: clean
 
 clean:
-	rm -f $(ODIR)/*.o unit_tester
+	rm -f $(ODIR)/*.o unit
