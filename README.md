@@ -4,7 +4,7 @@ implementações básicas em C das seguintes estruturas:
 - [x] lista encadeada
 - [x] lista duplamente encadeada
 ---
-- [ ] árvore binária de busca
+- [x] árvore binária de busca
 - [ ] árvore avl
 - [ ] árvore splay
 ---
